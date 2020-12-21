@@ -12,16 +12,19 @@ URL = 'https://www.python.org'
 
 
 def get_month():
+    """Получение текущего и следующего месяца"""
     curr_month = datetime.now().month
     next_month = datetime.now() + relativedelta(month=1)
     return curr_month, next_month.month
 
 
 def get_html(url: str) -> Response:
+    """Получение ответа от сервера по HTTP методом GET"""
     return requests.get(url)
 
 
 def get_content(html: str) -> list:
+    """Парсинг сырых данных с сайта"""
     content = []
     soup = BeautifulSoup(html, 'html.parser')
     items = soup.find('div', class_='medium-widget event-widget last').find_all('li')
@@ -36,6 +39,7 @@ def get_content(html: str) -> list:
 
 
 def parse_content(content: list) -> dict:
+    """Обработка данных для отправки"""
     curr_month, next_month = get_month()
     out_data = {
         'current_month': [],
@@ -52,6 +56,7 @@ def parse_content(content: list) -> dict:
 
 
 def parse_html():
+    """Функция инициализации процесса парсинга сайта"""
     html = get_html(URL)
     if html.status_code == 200:
         content = get_content(html.text)
