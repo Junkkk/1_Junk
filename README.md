@@ -17,7 +17,7 @@
 
 ##### 2) Сконфигурировать образ Docker
 
-    docker build -t example
+    docker build -t example .
     
 ##### 3) Запустить образ Docker
 
