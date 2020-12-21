@@ -20,12 +20,11 @@ def resource_setup(request):
     start_time = time.monotonic()
 
     def resource_teardown():
-        print(f'\nПрошло {time.monotonic() - start_time}')
+        print(f'\nПрошло {time.monotonic() - start_time} сек. {request}')
     request.addfinalizer(resource_teardown)
 
 
 def test_login_performance(resource_setup):
-
     for _ in range(1000000):
         login(random.choice([k for k in TEST_CASE.keys()]))
 
